@@ -30,8 +30,8 @@ public class Demo {
     @RequestMapping(value = "/demo2" , method = RequestMethod.GET)
     public void getRequestParam(@RequestParam("a") String a,
                                 @RequestParam("b") String b){
-        logger.info("a = "+a);
-        logger.warn("b = "+b);
+        logger.info("a = " + a);
+        logger.warn("b = " + b);
     }
 
     @RequestMapping(value = "demo3" , method = RequestMethod.GET)
