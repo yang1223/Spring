@@ -4,10 +4,123 @@
 	<link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
 </head>
 <body>
-	<h1>Spring Demo</h1>
-	<p>This is a spring framwork test!</p>
+	<header class="container-fluid" style="background-color:#AAAAAA	;height:4em;">
+	</header>
+
+	<div class="container">
+		<div class="row content" style="height:100%;">
+			<div class="col-sm-3 sidenav">
+				<ul class="nav">
+					<li class="active"><a data-toggle="tab" href="#section1">Home</a></li>
+					<li><a data-toggle="tab" href="#section2">Ajax</a></li>
+				</ul>
+			</div>
+
+			<div class="col-sm-9 tab-content">
+				<section id="section1" class="tab-pane fade in active">
+					<h1>Spring Demo</h1>
+					<p>This is a spring framwork test!</p>
+				</section>
+
+				<section id="section2" class="tab-pane fade">
+					<h1>Ajax Test</h1>
+					<p>Test your request and response!</p>
+					<form role="form">
+						<div class="form-group">
+							<div class="row">
+								<div class="col-xs-6">
+									<label>api</label>
+									<input class="form-control" id="api" type="text" placeholder="api/XXX/XXX">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-3">
+									<label>key</label>
+								</div>
+								<div class="col-xs-3">
+									<label>value</label>
+								</div>
+							</div>
+							<div id="ajax-data">
+<!-- 								<div class="row">
+									<div class="col-xs-3">
+										<input class="form-control" type="text">
+									</div>
+									<div class="col-xs-3">
+										<input class="form-control" type="text">
+									</div>
+								</div>
+								<br> -->
+							</div>
+							<div class="row">
+								<div class="col-xs-5">
+									<button class="btn btn-primary" id="add">+</button>
+									<button class="btn btn-primary" id="minus">-</button>
+									<button class="btn btn-primary" id="send">Send</button>
+								</div>
+							</div>
+
+						</div>
+					</form>
+				</section>
+
+			</div>
+		</div>
+	</div>
+
+
+	<footer class="container-fluid" style="background-color:#AAAAAA	;height:4em;">
+	</footer>
 
 	<script src="js/jquery/jquery-2.2.1.min.js"></script>
 	<script src="js/bootstrap/bootstrap.min.js"></script>
+	<script>
+		(function(){
+			var numberOfParam = 1;
+			var paramTxt = '<div class="row">'
+								+'<div class="col-xs-3">'
+									+'<input class="form-control ajax-key" type="text">'
+								+'</div>'
+								+'<div class="col-xs-3">'
+									+'<input class="form-control ajax-value" type="text">'
+								+'</div>'
+							+'</div><br>';
+
+			refreshForm(numberOfParam);
+
+			$('#add').on('click',function(e){
+				e.preventDefault();
+				numberOfParam++;
+				refreshForm(numberOfParam);
+			});
+			$('#minus').on('click',function(e){
+				e.preventDefault();
+				numberOfParam--;
+				refreshForm(numberOfParam);
+			});
+			$('#send').on('click',function(e){
+				e.preventDefault();
+				var ajaxData = {};
+				var apiurl = $('#api').val();
+				for(var i = 0 ; i < $('.ajax-key').length ; i++){
+					ajaxData[$('.ajax-key').eq(i).val()] = $('.ajax-value').eq(i).val();
+				}
+				$.ajax({
+					
+				});
+				console.log(apiurl);
+				console.log(ajaxData);
+			});
+
+			function refreshForm(numberOfParam){
+				$('#ajax-data').html("");
+				for (var i = 0; i < numberOfParam; i++) {
+					$('#ajax-data').append(paramTxt);
+				};
+			}
+
+		} () );
+
+	</script>
 </body>
 </html>
