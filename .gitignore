@@ -1,0 +1,7 @@
+#.gitignore
+
+# IntelliJ Gradle Project
+build
+.gradle/
+.idea/
+*.iml

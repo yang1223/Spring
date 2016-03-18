@@ -1,0 +1,47 @@
+apply plugin: 'war'
+
+def tomcatRootPath = 'C:/Server/apache-tomcat-7.0.68'
+def projectName = 'Spring'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies{
+    // spring framework
+    compile 'org.springframework:spring-webmvc:4.2.3.RELEASE'
+    compile 'org.springframework:spring-core:4.2.3.RELEASE'
+
+    // HttpServletRequest
+    compile 'javax.servlet:javax.servlet-api:3.1.0'
+
+    // bridge logging from JCL to SLF4j
+    compile 'org.slf4j:slf4j-api:1.7.12'
+    compile 'org.slf4j:jcl-over-slf4j:1.7.12'
+
+    // Logback
+    compile 'ch.qos.logback:logback-classic:1.1.3'
+
+}
+
+task clearProjectInTomcat(type: Delete, dependsOn: 'build') {
+    delete "$tomcatRootPath/webapps/$projectName"
+    delete "$tomcatRootPath/webapps/${projectName}.war"
+}
+
+task moveProjectToTomcat(type: Copy, dependsOn: 'clearProjectInTomcat') {
+    from "build/libs/${projectName}.war"
+    into "$tomcatRootPath/webapps"
+}
+
+task shutdownTomcat(type:Exec){
+    workingDir "$tomcatRootPath/bin"
+    commandLine "cmd", "/c" , "shutdown.bat"
+}
+
+task startTomcat(type:Exec){
+    workingDir "$tomcatRootPath/bin"
+    commandLine "cmd" , "/c" , "startup.bat"
+}
+
+
