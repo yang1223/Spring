@@ -22,6 +22,12 @@ dependencies{
     // Logback
     compile 'ch.qos.logback:logback-classic:1.1.3'
 
+    // jackson
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.6.3'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.6.3'
+
+
+
 }
 
 task clearProjectInTomcat(type: Delete, dependsOn: 'build') {
@@ -44,4 +50,9 @@ task startTomcat(type:Exec){
     commandLine "cmd" , "/c" , "startup.bat"
 }
 
+task moveFrontPage(type: Copy){
+    from "src/main/webapp/"
+    into "$tomcatRootPath/webapps/$projectName"
+    exclude "src/main/webapp/WEB-INF/"
+}
 
